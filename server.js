@@ -9,7 +9,10 @@ import { fileURLToPath } from 'url';
 
 import database from './db/database.mjs';
 import { loggingMiddleware, authMiddleware, attachUserMiddleware } from './middlewares/authMiddleware.mjs';
+
 import authRoutes from './routes/authRoutes.mjs';
+import contactsRoute from './routes/contactsRoute.mjs';
+
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -37,6 +40,8 @@ app.disable('x-powered-by');
 
 
 app.use('/auth', authRoutes);
+app.use('/', contactsRoute);
+
 
 app.get('/', async (req, res) => {
   res.render('index', {
@@ -45,6 +50,7 @@ app.get('/', async (req, res) => {
       { method: 'GET', path: '/', description: 'API Documentation' },
       { method: 'POST', path: '/auth/register', description: 'Register a new user' },
       { method: 'POST', path: '/auth/login', description: 'Login user and receive JWT' },
+      { method: 'GET', path: '/contacts', description: 'contacts List' },
     ]
   });
 });
